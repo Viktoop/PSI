@@ -1,0 +1,14 @@
+services:  
+
+    psi.admin.configuration.user.status:
+        class: "%psi.configuration.item.class%"
+        arguments:
+            - psi.admin.user.status
+            - Users
+            - Initial status
+            - raw
+            - "%psi.configuration.view.template.select%"
+            - ""
+            - "@psi.admin.provider.user.status.configuration"
+        tags:
+            - { name: psi.configuration }   

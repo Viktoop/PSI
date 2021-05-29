@@ -1,0 +1,48 @@
+parameters:
+    psi.user.model.class:       Psi\UserBundle\Model\User
+    psi.user.entity.class:      Psi\UserBundle\Entity\User
+    psi.user.provider.class:    Psi\UserBundle\Provider\EntityUserProvider
+    psi.user.manager.class:     Psi\UserBundle\Manager\UserManager
+    psi.user.access.token.manager.class:    Psi\UserBundle\Manager\AccessTokenManager
+    psi.user.security.provider.class:       Psi\UserBundle\Security\UserProvider
+    psi.user.model.user.status.class:        Psi\UserBundle\Model\UserStatus
+    psi.user.data.fixtures.orm.loadUserRoles.class: Psi\UserBundle\DataFixtures\ORM\LoadUserRoles
+services:
+
+    psi.user.model:
+        class: "%psi.user.model.class%"
+        arguments:
+            - "@doctrine.orm.entity_manager"
+    
+    psi.user.provider:
+        class: "%psi.user.provider.class%"
+        arguments:
+            - "%psi.user.model.class%"
+            - "%psi.user.entity.class%"
+            - "@doctrine.orm.entity_manager"
+            
+    psi.user.access.token.manager:
+        class: "%psi.user.access.token.manager.class%"
+        arguments:
+            - "@doctrine.orm.entity_manager"
+    
+    psi.user.manager:
+        class: "%psi.user.manager.class%"
+        arguments:
+            - "@psi.user.provider"
+            - "@security.encoder_factory"
+            - "@psi.user.access.token.manager"
+            
+    psi.user.security.provider:
+        class: "%psi.user.security.provider.class%"
+        arguments:
+            - "@psi.user.provider"
+        
+    psi.user.model.user.status:
+        class: "%psi.user.model.user.status.class%"
+            
+        
+    psi.user.data.fixtures.orm.loadUserRoles:
+        class: "%psi.user.data.fixtures.orm.loadUserRoles.class%"
+        
+    

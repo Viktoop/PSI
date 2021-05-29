@@ -1,0 +1,14 @@
+parameters:
+    psi.admin.user.manager.class:   Psi\AdminBundle\Manager\UserManager
+    psi.admin.provider.user.status.configuration.class: Psi\AdminBundle\Provider\UserStatusConfigurationProvider
+services:
+    
+    psi.admin.provider.user.status.configuration:
+        class: "%psi.admin.provider.user.status.configuration.class%"
+        arguments:
+            - "@psi.user.model.user.status"
+    
+    psi.admin.user.manager:
+        class: "%psi.admin.user.manager.class%"
+        arguments:
+            - "@psi.user.manager"
